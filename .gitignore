@@ -1,3 +1,8 @@
 analytics/dev_config.py
 analytics/prod_config.py
 *.pyc
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
