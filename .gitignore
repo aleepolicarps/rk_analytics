@@ -1,5 +1,3 @@
-analytics/dev_config.py
-analytics/prod_config.py
 *.pyc
 
 # Elastic Beanstalk Files

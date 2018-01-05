@@ -8,15 +8,7 @@ import os
 
 app = Flask(__name__)
 
-
-if os.environ['env'] == 'dev':
-    import dev_config
-    config = dev_config.Config
-elif os.environ['env'] == 'production':
-    import prod_config
-    config = prod_config.Config
-
-connection_string = config.CONNECTION_STRING
+connection_string = os.environ['CONNECTION_STRING']
 engine = create_engine(connection_string)
 Session = sessionmaker(bind=engine)
 session = Session()
