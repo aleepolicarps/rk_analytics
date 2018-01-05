@@ -1,7 +1,6 @@
 from flask import Blueprint, send_file, request
 from analytics.models.user_action import UserAction
 from analytics import session
-import numpy as np
 import os
 
 blueprint = Blueprint('events', __name__)
