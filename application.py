@@ -1,4 +1,4 @@
-import analytics
+from analytics import app as application
 
 if __name__ == '__main__':
-    analytics.app.run(debug=True)
+    application.run(debug=True)
