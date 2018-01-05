@@ -9,6 +9,7 @@ blueprint = Blueprint('events', __name__)
 def user_action():
     user_action = UserAction()
     user_action.account = request.args.get('account')
+    user_action.action = request.args.get('action')
     user_action.user_id = request.args.get('user_id')
     user_action.customer_id = request.args.get('customer_id')
     user_action.web_id = request.args.get('web_id')
