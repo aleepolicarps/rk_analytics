@@ -3,9 +3,9 @@ from sqlalchemy import Column, Integer, String
 
 class UserAction(Base):
     __tablename__ = 'user_actions'
-    id = Column(Integer, index=True, unique=True, primary_key=True)
-    account = Column(String(255), index=True)
-    action = Column(String(120), index=True)
+    id = Column(Integer, primary_key=True)
+    account = Column(String(255))
+    action = Column(String(120))
     user_id = Column(Integer)
     customer_id = Column(String(64))
     web_id = Column(String(64))
