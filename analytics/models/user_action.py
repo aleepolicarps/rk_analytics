@@ -1,10 +1,10 @@
 from analytics import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime
+import datetime
 
 class UserAction(Base):
     __tablename__ = 'user_actions'
-    id = Column(Integer, primary_key=True)
-    account = Column(String(255))
+    account = Column(String(255), primary_key=True)
     action = Column(String(120))
     user_id = Column(Integer)
     customer_id = Column(String(64))
@@ -23,3 +23,4 @@ class UserAction(Base):
     utm_campaign = Column(String(120))
     utm_term = Column(String(120))
     utm_content = Column(String(120))
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)

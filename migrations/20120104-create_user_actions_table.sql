@@ -19,7 +19,8 @@ CREATE TABLE user_actions(
     utm_medium CHAR(120),
     utm_campaign CHAR(120),
     utm_term CHAR(120),
-    utm_content CHAR(120)
+    utm_content CHAR(120),
+    created_at TIMESTAMPTZ
 );
 
 
@@ -50,6 +51,7 @@ CREATE TABLE user_actions(
     utm_medium CHAR(120),
     utm_campaign CHAR(120),
     utm_term CHAR(120),
-    utm_content CHAR(120)
+    utm_content CHAR(120),
+    created_at TIMESTAMPTZ
 );
 -- end production --
