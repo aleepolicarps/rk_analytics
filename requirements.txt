@@ -10,6 +10,7 @@ MarkupSafe==1.0
 psycopg2==2.7.3.2
 python-dateutil==2.6.1
 python-editor==1.0.3
+redshift-sqlalchemy==0.4.1
 six==1.11.0
 SQLAlchemy==1.2.0
 Werkzeug==0.14.1
