@@ -1,6 +1,6 @@
 'use strict';
 
-var RK_ANALYTICS_URL = 'http://rk-analytics-env.fksdxdtg32.ap-southeast-1.elasticbeanstalk.com';
+var RK_ANALYTICS_URL = 'https://analytics.rkings.net';
 
 window.rkAnalytics = {};
 
@@ -41,26 +41,25 @@ var getUrlParameters = function(url){
 
 window.rkAnalytics.trackUserAction = function(action, section = '', subsection = '', value = '') {
   var urlParams = getUrlParameters(window.location.href);
+  var params = {
+    account: window.location.hostname,
+    action: action,
+    customer_id: window.gbl_new_user_id === undefined ? null : window.gbl_new_user_id,
+    web_id: $('#webid').val(),
+    first_name: $('#fname').val(),
+    last_name: $('#lname').val(),
+    email: $('#email').val(),
+    session: getSession(),
+    section: section,
+    subsection: subsection,
+    value: value,
+    utm_source: urlParams['utm_source'],
+    utm_medium: urlParams['utm_medium'],
+    utm_campaign: urlParams['utm_campaign'],
+    utm_content: urlParams['utm_content'],
+    utm_term: urlParams['utm_term'],
+  };
 
-  $.ajax({
-    url: RK_ANALYTICS_URL + '/events/user-action',
-    data: {
-      account: window.location.hostname,
-      action: action,
-      customer_id: window.gbl_new_user_id === undefined ? null : window.gbl_new_user_id,
-      web_id: $('#webid').val(),
-      first_name: $('#fname').val(),
-      last_name: $('#lname').val(),
-      email: $('#email').val(),
-      session: getSession(),
-      section: section,
-      subsection: subsection,
-      value: value,
-      utm_source: urlParams['utm_source'],
-      utm_medium: urlParams['utm_medium'],
-      utm_campaign: urlParams['utm_campaign'],
-      utm_content: urlParams['utm_content'],
-      utm_term: urlParams['utm_term'],
-    }
-  });
+  var imageUrl = RK_ANALYTICS_URL + '/events/user-action?' + $.param(params);
+  $('body').append('<img src="'+ imageUrl +'" style="display:none;">');
 };
