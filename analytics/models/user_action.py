@@ -4,7 +4,9 @@ import datetime
 
 class UserAction(Base):
     __tablename__ = 'user_actions'
-    account = Column(String(255), primary_key=True)
+
+    id = Column(Integer, primary_key=True, default=None)
+    account = Column(String(255))
     action = Column(String(120))
     user_id = Column(Integer)
     customer_id = Column(String(64))
