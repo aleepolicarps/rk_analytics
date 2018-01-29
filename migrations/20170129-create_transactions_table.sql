@@ -29,5 +29,7 @@ CREATE TABLE transactions(
     created_at TIMESTAMPTZ,
     response varchar(MAX),
     webid VARCHAR(15),
-    country VARCHAR (255)
+    country VARCHAR (255),
+    original_id INT,
+    status VARCHAR(120)
 );
