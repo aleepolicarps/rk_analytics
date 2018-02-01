@@ -86,7 +86,7 @@ class TransactionsReplicator:
 
         result = []
         with SSHTunnelForwarder(
-            (config['fb_ssh_host'], config['fb_ssh_port']),
+            (config['fb_ssh_host'], int(config['fb_ssh_port'])),
             ssh_username=config['fb_ssh_username'],
             ssh_password=config['fb_ssh_password'],
             remote_bind_address=('127.0.0.1', 3306),
@@ -129,7 +129,7 @@ class TransactionsReplicator:
 
         result = []
         with SSHTunnelForwarder(
-            (config['pb_ssh_host'], config['pb_ssh_port']),
+            (config['pb_ssh_host'], int(config['pb_ssh_port'])),
             ssh_username=config['pb_ssh_username'],
             ssh_password=config['pb_ssh_password'],
             remote_bind_address=('127.0.0.1', 3306),
