@@ -1,6 +1,6 @@
 from analytics import db_conn, config, app
 from analytics.models import Transactions
-from sqlalchemy import desc, create_engine, func, select
+from sqlalchemy import desc, create_engine, func, select, engine
 from sqlalchemy.sql import text
 from sshtunnel import SSHTunnelForwarder
 import MySQLdb as db
@@ -29,14 +29,14 @@ class TransactionsReplicator:
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
-            mode=charge['mode'], code=charge['code'], amount=charge['amount'], currency=charge['currency'],
-            card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
-            type=charge['type'], bin=charge['bin'], last=charge['last'], exp_month=charge['exp_month'],
-            exp_year=charge['exp_year'], bank_id=charge['bank_id'], bank_authcode=charge['bank_authcode'],
-            bank_time=charge['bank_time'], charge_time=charge['charge_time'], token=charge['token'],
-            reference=charge['reference'], base_reference=charge['base_reference'], transaction_unique_id=charge['transaction_unique_id'],
-            fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
-            webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
+                mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
+                card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
+                type=charge['type'], bin=charge['bin'], last=charge['last'], exp_month=charge['exp_month'],
+                exp_year=charge['exp_year'], bank_id=charge['bank_id'], bank_authcode=charge['bank_authcode'],
+                bank_time=charge['bank_time'], charge_time=charge['charge_time'], token=charge['token'],
+                reference=charge['reference'], base_reference=charge['base_reference'], transaction_unique_id=charge['transaction_unique_id'],
+                fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
+                webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
 
         db_conn.execute(Transactions.insert(), values)
         app.logger.info('Finished replication on SD')
@@ -66,14 +66,14 @@ class TransactionsReplicator:
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
-            mode=charge['mode'], code=charge['code'], amount=charge['amount'], currency=charge['currency'],
-            card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
-            type=charge['type'], bin=charge['bin'], last=charge['last'], exp_month=charge['exp_month'],
-            exp_year=charge['exp_year'], bank_id=charge['bank_id'], bank_authcode=charge['bank_authcode'],
-            bank_time=charge['bank_time'], charge_time=charge['charge_time'], token=charge['token'],
-            reference=charge['reference'], base_reference=charge['base_reference'], transaction_unique_id=charge['transaction_unique_id'],
-            fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
-            webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
+                mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
+                card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
+                type=charge['type'], bin=charge['bin'], last=charge['last'], exp_month=charge['exp_month'],
+                exp_year=charge['exp_year'], bank_id=charge['bank_id'], bank_authcode=charge['bank_authcode'],
+                bank_time=charge['bank_time'], charge_time=charge['charge_time'], token=charge['token'],
+                reference=charge['reference'], base_reference=charge['base_reference'], transaction_unique_id=charge['transaction_unique_id'],
+                fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
+                webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
 
         db_conn.execute(Transactions.insert(), values)
         app.logger.info('Finished replication on BB')
@@ -90,7 +90,7 @@ class TransactionsReplicator:
             ssh_username=config['fb_ssh_username'],
             ssh_password=config['fb_ssh_password'],
             remote_bind_address=('127.0.0.1', 3306),
-            local_bind_address = ('127.0.0.1', 3307),
+            local_bind_address = ('127.0.0.1', 3308),
             ) as server:
 
             connection_string = config['fb_connection_string']
@@ -109,7 +109,7 @@ class TransactionsReplicator:
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
-                mode=charge['mode'], code=charge['code'], amount=charge['amount'], currency=charge['currency'],
+                mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
                 card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
                 type=charge['type'], bin=charge['bin'], last=charge['last'], exp_month=charge['exp_month'],
                 exp_year=charge['exp_year'], bank_id=charge['bank_id'], bank_authcode=charge['bank_authcode'],
@@ -152,7 +152,7 @@ class TransactionsReplicator:
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
-                mode=charge['mode'], code=charge['code'], amount=charge['amount'], currency=charge['currency'],
+                mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
                 card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
                 type=charge['type'], bin=charge['bin'], last=charge['last'], exp_month=charge['exp_month'],
                 exp_year=charge['exp_year'], bank_id=charge['bank_id'], bank_authcode=charge['bank_authcode'],
