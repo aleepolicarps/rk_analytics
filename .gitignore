@@ -1,4 +1,5 @@
 *.pyc
+dev_config.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

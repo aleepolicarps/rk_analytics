@@ -1,7 +1,6 @@
 CREATE TABLE transactions(
     id INT IDENTITY(1, 1) NOT NULL,
     account VARCHAR(255),
-    charge_id VARCHAR(255),
     merchant_user_id VARCHAR(255),
     transaction_type VARCHAR(120),
     mode VARCHAR(15),
@@ -13,7 +12,7 @@ CREATE TABLE transactions(
     bank VARCHAR(255),
     level VARCHAR(255),
     type VARCHAR(255),
-    bind VARCHAR(255),
+    bin VARCHAR(255),
     last VARCHAR(255),
     exp_month VARCHAR(255),
     exp_year VARCHAR(255),
