@@ -30,6 +30,9 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
+            for value in charge.values():
+                value = value.encode('utf8') if type(value) == str else value
+
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
                 card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
@@ -69,6 +72,9 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
+            for value in charge.values():
+                value = value.encode('utf8') if type(value) == str else value
+
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
                 card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
@@ -114,6 +120,9 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
+            for value in charge.values():
+                value = value.encode('utf8') if type(value) == str else value
+
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
                 card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
@@ -159,6 +168,9 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
+            for value in charge.values():
+                value = value.encode('utf8') if type(value) == str else value
+
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
                 card_holder=charge['card_holder'], brand=charge['brand'], bank=charge['bank'], level=charge['level'],
