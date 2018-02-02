@@ -16,7 +16,7 @@ class TransactionsReplicator:
         connection_string = config['sd_connection_string']
         source_engine = create_engine(connection_string)
         source_conn = source_engine.connect()
-        sql = text('''SELECT maxpay_charge_new.*, IF(users.webid, users.webid, temp_users.webid) AS webid, IF(users.webid, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
+        sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
             LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
             LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
             JOIN webid wb1 ON users.webid = wb1.web_id
@@ -54,7 +54,7 @@ class TransactionsReplicator:
         connection_string = config['bb_connection_string']
         source_engine = create_engine(connection_string)
         source_conn = source_engine.connect()
-        sql = text('''SELECT maxpay_charge_new.*, IF(users.webid, users.webid, temp_users.webid) AS webid, IF(users.webid, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
+        sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
             LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
             LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
             JOIN webid wb1 ON users.webid = wb1.web_id
@@ -100,7 +100,7 @@ class TransactionsReplicator:
             connection_string = config['fb_connection_string']
             source_engine = create_engine(connection_string)
             source_conn = source_engine.connect()
-            sql = text('''SELECT maxpay_charge_new.*, IF(users.webid, users.webid, temp_users.webid) AS webid, IF(users.webid, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
+            sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
                 LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
                 LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
                 JOIN webid wb1 ON users.webid = wb1.web_id
@@ -145,7 +145,7 @@ class TransactionsReplicator:
             connection_string = config['pb_connection_string']
             source_engine = create_engine(connection_string)
             source_conn = source_engine.connect()
-            sql = text('''SELECT maxpay_charge_new.*, IF(users.webid, users.webid, temp_users.webid) AS webid, IF(users.webid, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
+            sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
                 LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
                 LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
                 JOIN webid wb1 ON users.webid = wb1.web_id
