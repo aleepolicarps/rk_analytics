@@ -13,7 +13,7 @@ class TransactionsReplicator:
         last_id = select([func.max(Transactions.c.original_id)]).where(Transactions.c.account == account_name).execute().first()
         last_id = last_id[0] if last_id[0] else 0
 
-        connection_string = config['sd_connection_string']
+        connection_string = config['sd_connection_string'] + '?charset=utf8'
         source_engine = create_engine(connection_string)
         source_conn = source_engine.connect()
         sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
@@ -30,8 +30,6 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
-            for value in charge.values():
-                value = value.encode('utf8') if type(value) == str else value
 
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
@@ -54,7 +52,7 @@ class TransactionsReplicator:
         last_id = last_id[0] if last_id[0] else 0
         app.logger.info(last_id)
 
-        connection_string = config['bb_connection_string']
+        connection_string = config['bb_connection_string'] + '?charset=utf8'
         source_engine = create_engine(connection_string)
         source_conn = source_engine.connect()
         sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
@@ -72,8 +70,6 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
-            for value in charge.values():
-                value = value.encode('utf8') if type(value) == str else value
 
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
@@ -103,7 +99,7 @@ class TransactionsReplicator:
             local_bind_address = ('127.0.0.1', 3308),
             ) as server:
 
-            connection_string = config['fb_connection_string']
+            connection_string = config['fb_connection_string'] + '?charset=utf8'
             source_engine = create_engine(connection_string)
             source_conn = source_engine.connect()
             sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
@@ -120,8 +116,6 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
-            for value in charge.values():
-                value = value.encode('utf8') if type(value) == str else value
 
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
@@ -151,7 +145,7 @@ class TransactionsReplicator:
             local_bind_address = ('127.0.0.1', 3307),
             ) as server:
 
-            connection_string = config['pb_connection_string']
+            connection_string = config['pb_connection_string'] + '?charset=utf8'
             source_engine = create_engine(connection_string)
             source_conn = source_engine.connect()
             sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
@@ -168,8 +162,6 @@ class TransactionsReplicator:
         values = []
         for charge in result:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
-            for value in charge.values():
-                value = value.encode('utf8') if type(value) == str else value
 
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                 mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
