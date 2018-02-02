@@ -17,8 +17,8 @@ class TransactionsReplicator:
         source_engine = create_engine(connection_string)
         source_conn = source_engine.connect()
         sql = text('''SELECT maxpay_charge_new.*, webid.web_id AS webid, webid.country AS web_id_country FROM maxpay_charge_new
-            LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
-            LEFT JOIN webid ON users.webid = webid.web_id
+            LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
+            LEFT JOIN webid ON temp_users.webid = webid.web_id
             WHERE maxpay_charge_new.id > :last_id
             ORDER BY maxpay_charge_new.id ASC
             LIMIT :count''')
@@ -53,8 +53,8 @@ class TransactionsReplicator:
         source_engine = create_engine(connection_string)
         source_conn = source_engine.connect()
         sql = text('''SELECT maxpay_charge_new.*, webid.web_id AS webid, webid.country AS web_id_country FROM maxpay_charge_new
-            LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
-            LEFT JOIN webid ON users.webid = webid.web_id
+            LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
+            LEFT JOIN webid ON temp_users.webid = webid.web_id
             WHERE maxpay_charge_new.id > :last_id
             ORDER BY maxpay_charge_new.id ASC
             LIMIT :count''')
@@ -97,8 +97,8 @@ class TransactionsReplicator:
             source_engine = create_engine(connection_string)
             source_conn = source_engine.connect()
             sql = text('''SELECT maxpay_charge_new.*, webid.web_id AS webid, webid.country AS web_id_country FROM maxpay_charge_new
-                LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
-                LEFT JOIN webid ON users.webid = webid.web_id
+                LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
+                LEFT JOIN webid ON temp_users.webid = webid.web_id
                 WHERE maxpay_charge_new.id > :last_id
                 ORDER BY maxpay_charge_new.id ASC
                 LIMIT :count''')
@@ -140,8 +140,8 @@ class TransactionsReplicator:
             source_engine = create_engine(connection_string)
             source_conn = source_engine.connect()
             sql = text('''SELECT maxpay_charge_new.*, webid.web_id AS webid, webid.country AS web_id_country FROM maxpay_charge_new
-                LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
-                LEFT JOIN webid ON users.webid = webid.web_id
+                LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
+                LEFT JOIN webid ON temp_users.webid = webid.web_id
                 WHERE maxpay_charge_new.id > :last_id
                 ORDER BY maxpay_charge_new.id ASC
                 LIMIT :count''')
