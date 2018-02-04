@@ -19,12 +19,12 @@ class TransactionsReplicator:
         sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
             LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
             LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
-            JOIN webid wb1 ON users.webid = wb1.web_id
-            JOIN webid wb2 ON temp_users.webid = wb2.web_id
+            LEFT JOIN webid wb1 ON users.webid = wb1.web_id
+            LEFT JOIN webid wb2 ON temp_users.webid = wb2.web_id
             WHERE maxpay_charge_new.id > :last_id
             ORDER BY maxpay_charge_new.id ASC
             LIMIT :count''')
-        result = source_conn.execute(sql, last_id=last_id, count=100).fetchall()
+        result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
         source_conn.close()
 
         values = []
@@ -41,7 +41,9 @@ class TransactionsReplicator:
                 fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
                 webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
 
-        db_conn.execute(Transactions.insert(), values)
+        if values:
+            db_conn.execute(Transactions.insert(), values)
+
         app.logger.info('Finished replication on SD')
 
     def replicate_bb_transactions(self):
@@ -58,12 +60,12 @@ class TransactionsReplicator:
         sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
             LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
             LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
-            JOIN webid wb1 ON users.webid = wb1.web_id
-            JOIN webid wb2 ON temp_users.webid = wb2.web_id
+            LEFT JOIN webid wb1 ON users.webid = wb1.web_id
+            LEFT JOIN webid wb2 ON temp_users.webid = wb2.web_id
             WHERE maxpay_charge_new.id > :last_id
             ORDER BY maxpay_charge_new.id ASC
             LIMIT :count''')
-        result = source_conn.execute(sql, last_id=last_id, count=100).fetchall()
+        result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
         app.logger.info(len(result))
         source_conn.close()
 
@@ -81,7 +83,9 @@ class TransactionsReplicator:
                 fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
                 webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
 
-        db_conn.execute(Transactions.insert(), values)
+        if values:
+            db_conn.execute(Transactions.insert(), values)
+
         app.logger.info('Finished replication on BB')
 
     def replicate_fb_transactions(self):
@@ -105,12 +109,12 @@ class TransactionsReplicator:
             sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
                 LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
                 LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
-                JOIN webid wb1 ON users.webid = wb1.web_id
-                JOIN webid wb2 ON temp_users.webid = wb2.web_id
+                LEFT JOIN webid wb1 ON users.webid = wb1.web_id
+                LEFT JOIN webid wb2 ON temp_users.webid = wb2.web_id
                 WHERE maxpay_charge_new.id > :last_id
                 ORDER BY maxpay_charge_new.id ASC
                 LIMIT :count''')
-            result = source_conn.execute(sql, last_id=last_id, count=100).fetchall()
+            result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
             source_conn.close()
 
         values = []
@@ -127,7 +131,9 @@ class TransactionsReplicator:
                 fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
                 webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
 
-        db_conn.execute(Transactions.insert(), values)
+        if values:
+            db_conn.execute(Transactions.insert(), values)
+
         app.logger.info('Finished replication on FB')
 
     def replicate_pb_transactions(self):
@@ -151,12 +157,12 @@ class TransactionsReplicator:
             sql = text('''SELECT maxpay_charge_new.*, IF(users.webid IS NOT NULL, users.webid, temp_users.webid) AS webid, IF(users.webid IS NOT NULL, wb1.country, wb2.country) AS web_id_country FROM maxpay_charge_new
                 LEFT JOIN users ON users.customer_id = maxpay_charge_new.merchant_user_id
                 LEFT JOIN temp_users ON temp_users.cust_id = maxpay_charge_new.merchant_user_id
-                JOIN webid wb1 ON users.webid = wb1.web_id
-                JOIN webid wb2 ON temp_users.webid = wb2.web_id
+                LEFT JOIN webid wb1 ON users.webid = wb1.web_id
+                LEFT JOIN webid wb2 ON temp_users.webid = wb2.web_id
                 WHERE maxpay_charge_new.id > :last_id
                 ORDER BY maxpay_charge_new.id ASC
                 LIMIT :count''')
-            result = source_conn.execute(sql, last_id=last_id, count=100).fetchall()
+            result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
             source_conn.close()
 
         values = []
@@ -173,5 +179,7 @@ class TransactionsReplicator:
                 fraudulent=charge['is_fraudalerts'], created_at=charge['date_created'], response=charge['charges_response'],
                 webid=charge['webid'], country=charge['web_id_country'], original_id=charge['id'], status=charge['status']))
 
-        db_conn.execute(Transactions.insert(), values)
+        if values:
+            db_conn.execute(Transactions.insert(), values)
+
         app.logger.info('Finished replication on PB')
