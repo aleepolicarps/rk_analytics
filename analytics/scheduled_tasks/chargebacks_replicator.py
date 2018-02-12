@@ -5,6 +5,7 @@ from sqlalchemy.sql import text
 from sshtunnel import SSHTunnelForwarder
 import MySQLdb as db
 
+
 class ChargebacksReplicator:
 
     def replicate_sd_chargebacks(self):
