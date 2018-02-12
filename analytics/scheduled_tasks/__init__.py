@@ -1,6 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from transactions_replicator import TransactionsReplicator
 from chargebacks_replicator import ChargebacksReplicator
+from forex_rate_getter import ForExRateGetter
 from pytz import utc
 import atexit
 
@@ -9,6 +10,7 @@ scheduler.start()
 
 transactions_replicator = TransactionsReplicator()
 chargebacks_replicator = ChargebacksReplicator()
+forex_rate_getter = ForExRateGetter()
 
 
 def __replicate_pb_tables():
@@ -29,6 +31,7 @@ def __replicate_sd_tables():
 scheduler.add_job(__replicate_pb_tables, 'interval', minutes=10)
 scheduler.add_job(__replicate_bb_tables, 'interval', minutes=10)
 scheduler.add_job(__replicate_sd_tables, 'interval', minutes=10)
+scheduler.add_job(forex_rate_getter.update_forex_rates, 'interval', hours=12)
 
 scheduler.print_jobs()
 atexit.register(lambda: scheduler.shutdown())

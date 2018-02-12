@@ -4,6 +4,7 @@ import os
 
 blueprint = Blueprint('events', __name__)
 
+
 @blueprint.route('/user-action')
 def user_action():
     # TODO Track user actions (add more parameter)
