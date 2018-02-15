@@ -10,12 +10,6 @@ from datetime import datetime, timedelta
 import pytz
 
 
-import json
-import os
-import pprint
-pp = pprint.PrettyPrinter(indent=4)
-
-
 class FacebookReportGetter:
 
     def __init__(self):
@@ -47,8 +41,8 @@ class FacebookReportGetter:
                 mnl_time_from = datetime.strptime(mnl_time_from, '%Y-%m-%d %H:%M:%S')
                 mnl_time_to = datetime.strptime(mnl_time_to, '%Y-%m-%d %H:%M:%S')
 
-                denmark_time_from = pytz.timezone('Asia/Hong_Kong').localize(mnl_time_from).astimezone(pytz.timezone('Europe/Copenhagen'))
-                denmark_time_to = pytz.timezone('Asia/Hong_Kong').localize(mnl_time_to).astimezone(pytz.timezone('Europe/Copenhagen'))
+                denmark_time_from = mnl_time_from - timedelta(hours=7)
+                denmark_time_to = mnl_time_to - timedelta(hours=7)
 
                 offsite_conversion = 0
                 complete_registrations = 0
@@ -75,7 +69,7 @@ class FacebookReportGetter:
         FacebookAdDateQuery = Table('facebook_ad_date_query', metadata, autoload=True)
         ad_date_query = FacebookAdDateQuery.select().execute().first()
         query_date = ad_date_query['query_date']
-        end_of_query = '2018-02-12'
+        end_of_query = '2018-02-14'
         if query_date == end_of_query:
             return
 
@@ -109,8 +103,8 @@ class FacebookReportGetter:
                 mnl_time_from = datetime.strptime(mnl_time_from, '%Y-%m-%d %H:%M:%S')
                 mnl_time_to = datetime.strptime(mnl_time_to, '%Y-%m-%d %H:%M:%S')
 
-                denmark_time_from = pytz.timezone('Asia/Hong_Kong').localize(mnl_time_from).astimezone(pytz.timezone('Europe/Copenhagen'))
-                denmark_time_to = pytz.timezone('Asia/Hong_Kong').localize(mnl_time_to).astimezone(pytz.timezone('Europe/Copenhagen'))
+                denmark_time_from = mnl_time_from - timedelta(hours=7)
+                denmark_time_to = mnl_time_to - timedelta(hours=7)
 
                 offsite_conversion = 0
                 complete_registrations = 0
