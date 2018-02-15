@@ -14,6 +14,7 @@ chargebacks_replicator = ChargebacksReplicator()
 facebook_report_getter = FacebookReportGetter()
 forex_rate_getter = ForExRateGetter()
 
+
 def __replicate_pb_tables():
     transactions_replicator.replicate_pb_transactions()
     chargebacks_replicator.replicate_pb_chargebacks()
@@ -28,12 +29,13 @@ def __replicate_sd_tables():
     transactions_replicator.replicate_sd_transactions()
     chargebacks_replicator.replicate_sd_chargebacks()
 
-#
+
 scheduler.add_job(__replicate_pb_tables, 'interval', minutes=10)
 scheduler.add_job(__replicate_bb_tables, 'interval', minutes=10)
 scheduler.add_job(__replicate_sd_tables, 'interval', minutes=10)
 scheduler.add_job(forex_rate_getter.update_forex_rates, 'interval', hours=12)
-scheduler.add_job(facebook_report_getter.get_budgetbear_report, 'cron', hour=0, minute=10, timezone='Asia/Hong_Kong')
+scheduler.add_job(facebook_report_getter.get_bb_reports, 'cron', hour=0, minute=10, timezone='Asia/Hong_Kong')
+scheduler.add_job(facebook_report_getter.get_previous_bb_reports, 'interval', minutes=30)
 
 scheduler.print_jobs()
 atexit.register(lambda: scheduler.shutdown())
