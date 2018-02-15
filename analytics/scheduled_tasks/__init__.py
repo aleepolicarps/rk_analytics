@@ -14,7 +14,6 @@ chargebacks_replicator = ChargebacksReplicator()
 facebook_report_getter = FacebookReportGetter()
 forex_rate_getter = ForExRateGetter()
 
-
 def __replicate_pb_tables():
     transactions_replicator.replicate_pb_transactions()
     chargebacks_replicator.replicate_pb_chargebacks()

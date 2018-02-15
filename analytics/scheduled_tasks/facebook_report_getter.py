@@ -30,10 +30,9 @@ class FacebookReportGetter:
                 'date_preset': 'yesterday',
                 'breakdowns': ['hourly_stats_aggregated_by_advertiser_time_zone']
             }, fields=[
-                'call_to_action_clicks', 'clicks', 'cost_per_unique_click', 'cpc', 'cpm', 'ctr', 'frequency',
-                'impressions', 'inline_link_clicks', 'inline_link_click_ctr', 'unique_inline_link_clicks',
-                'unique_link_clicks_ctr', 'relevance_score', 'spend', 'unique_clicks', 'unique_ctr',
-                'campaign_name', 'adset_name', 'ad_name', 'actions', 'date_start', 'date_stop'
+                'impressions', 'inline_link_clicks', 'inline_link_click_ctr', 'relevance_score', 'spend',
+                'campaign_name', 'adset_name', 'ad_name', 'actions', 'date_start', 'date_stop',
+                'clicks', 'cpc', 'cpm', 'ctr',
             ])
 
             for insight in insights:
@@ -63,10 +62,7 @@ class FacebookReportGetter:
 
                 db_conn.execute(FacebookAdReports.insert(), account='budgetbear.net', campaign_name=insight.get('campaign_name'),
                                 ad_set_name=insight.get('adset_name'), ad_name=insight.get('ad_name'), account_currency='USD',
-                                call_to_action_click=insight.get('call_to_action_click'), clicks=insight.get('clicks'), cost_per_unique_click=insight.get('cost_per_unique_click'),
-                                cpc=insight.get('cpc'), cpm=insight.get('cpm'), ctr=insight.get('ctr'), frequency=insight.get('frequency'),
+                                clicks=insight.get('clicks'), cpc=insight.get('cpc'), cpm=insight.get('cpm'), ctr=insight.get('ctr'),
                                 impressions=insight.get('impressions'), inline_link_clicks=insight.get('inline_link_clicks'),
-                                unique_inline_link_clicks=insight.get('unique_inline_link_clicks'), unique_inline_link_click_ctr=insight.get('unique_inline_link_click_ctr'),
-                                inline_link_click_ctr=insight.get('inline_link_click_ctr'), spend=insight.get('spend'),
-                                unique_clicks=insight.get('unique_clicks'), unique_ctr=insight.get('unique_ctr'), relevance_score=relevance_score,
+                                inline_link_click_ctr=insight.get('inline_link_click_ctr'), spend=insight.get('spend'), relevance_score=relevance_score,
                                 offsite_conversion=offsite_conversion, complete_registrations=complete_registrations, since=denmark_time_from, until=denmark_time_to)
