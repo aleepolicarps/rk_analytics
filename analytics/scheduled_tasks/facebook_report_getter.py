@@ -2,11 +2,8 @@ from analytics import app, config, db_conn
 from analytics.models import FacebookAdReports
 from facebookads.api import FacebookAdsApi
 from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.adaccountuser import AdAccountUser
-from facebookads.adobjects.campaign import Campaign
-from facebookads.adobjects.adset import AdSet
-from facebookads.adobjects.ad import Ad
 from datetime import datetime, timedelta
+from sqlalchemy import and_
 import pytz
 
 
@@ -17,11 +14,11 @@ class FacebookReportGetter:
 
     def get_bb_reports(self):
         ad_account = AdAccount(config['facebook_bb_ad_account_id'])
-        mnl_now = datetime.now(pytz.timezone('Asia/Hong_Kong'))
+        denmark_now = datetime.now(pytz.timezone('Europe/Copenhagen')).replace(tzinfo=None)
         for campaign in ad_account.get_campaigns():
             insights = campaign.get_insights(params={
                 'level': 'ad',
-                'date_preset': 'yesterday',
+                'date_preset': 'today',
                 'breakdowns': ['hourly_stats_aggregated_by_advertiser_time_zone']
             }, fields=[
                 'impressions', 'inline_link_clicks', 'inline_link_click_ctr', 'relevance_score', 'spend',
@@ -44,6 +41,20 @@ class FacebookReportGetter:
                 denmark_time_from = mnl_time_from - timedelta(hours=7)
                 denmark_time_to = mnl_time_to - timedelta(hours=7)
 
+                if denmark_time_to > denmark_now:  # if period is not yet done, skip
+                    continue
+
+                facebook_report = FacebookAdReports.select(and_(
+                    FacebookAdReports.c.campaign_name == insight.get('campaign_name'),
+                    FacebookAdReports.c.ad_set_name == insight.get('adset_name'),
+                    FacebookAdReports.c.ad_name == insight.get('ad_name'),
+                    FacebookAdReports.c.since == denmark_time_from,
+                    FacebookAdReports.c.until == denmark_time_to)
+                ).execute().first()
+
+                if facebook_report is not None:  # if entry already exists, skip
+                    continue
+
                 offsite_conversion = 0
                 complete_registrations = 0
                 relevance_score = insight.get('relevance_score').get('score') if insight.get('relevance_score') else 0
@@ -61,7 +72,7 @@ class FacebookReportGetter:
                                 inline_link_click_ctr=insight.get('inline_link_click_ctr'), spend=insight.get('spend'), relevance_score=relevance_score,
                                 offsite_conversion=offsite_conversion, complete_registrations=complete_registrations, since=denmark_time_from, until=denmark_time_to)
 
-    # temporary. will delete after replication
+    # unused code. script to fetch FB reports per date
     def get_previous_bb_reports(self):
         from analytics import metadata
         from sqlalchemy import Table
@@ -91,7 +102,6 @@ class FacebookReportGetter:
             ])
 
             for insight in insights:
-                print insight
                 hour_range = insight['hourly_stats_aggregated_by_advertiser_time_zone']
 
                 time_from = hour_range.split(' - ')[0]
