@@ -22,7 +22,7 @@ class LogDataReplicator:
                 AND log_data.created_date > '2017-12-31 23:59:59'
             ORDER BY log_data.id ASC
             LIMIT :count''')
-        result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
+        result = source_conn.execute(sql, last_id=int(last_id), count=400).fetchall()
 
         log_data = []
         for datum in result:
@@ -66,7 +66,7 @@ class LogDataReplicator:
                 AND log_data.created_date > '2017-12-31 23:59:59'
             ORDER BY log_data.id ASC
             LIMIT :count''')
-        result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
+        result = source_conn.execute(sql, last_id=int(last_id), count=400).fetchall()
 
         log_data = []
         for datum in result:
@@ -118,7 +118,7 @@ class LogDataReplicator:
                     AND log_data.created_date > '2017-12-31 23:59:59'
                 ORDER BY log_data.id ASC
                 LIMIT :count''')
-            result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
+            result = source_conn.execute(sql, last_id=int(last_id), count=400).fetchall()
 
             log_data = []
             for datum in result:
