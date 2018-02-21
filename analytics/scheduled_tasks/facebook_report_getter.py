@@ -38,8 +38,8 @@ class FacebookReportGetter:
                 mnl_time_from = datetime.strptime(mnl_time_from, '%Y-%m-%d %H:%M:%S')
                 mnl_time_to = datetime.strptime(mnl_time_to, '%Y-%m-%d %H:%M:%S')
 
-                denmark_time_from = mnl_time_from - timedelta(hours=7)
-                denmark_time_to = mnl_time_to - timedelta(hours=7)
+                denmark_time_from = mnl_time_from - timedelta(hours=8)
+                denmark_time_to = mnl_time_to - timedelta(hours=8)
 
                 if denmark_time_to > denmark_now:  # if period is not yet done, skip
                     continue
@@ -113,8 +113,8 @@ class FacebookReportGetter:
                 mnl_time_from = datetime.strptime(mnl_time_from, '%Y-%m-%d %H:%M:%S')
                 mnl_time_to = datetime.strptime(mnl_time_to, '%Y-%m-%d %H:%M:%S')
 
-                denmark_time_from = mnl_time_from - timedelta(hours=7)
-                denmark_time_to = mnl_time_to - timedelta(hours=7)
+                denmark_time_from = mnl_time_from - timedelta(hours=8)
+                denmark_time_to = mnl_time_to - timedelta(hours=8)
 
                 offsite_conversion = 0
                 complete_registrations = 0

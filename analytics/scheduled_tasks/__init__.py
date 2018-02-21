@@ -35,11 +35,11 @@ def __replicate_sd_tables():
     log_data_replicator.replicate_sd_log_data()
 
 
-# scheduler.add_job(__replicate_pb_tables, 'interval', minutes=10)
-# scheduler.add_job(__replicate_bb_tables, 'interval', minutes=10)
-# scheduler.add_job(__replicate_sd_tables, 'interval', minutes=10)
-# scheduler.add_job(forex_rate_getter.update_forex_rates, 'interval', hours=12)
-# scheduler.add_job(facebook_report_getter.get_bb_reports, 'cron', minute=0)
+scheduler.add_job(__replicate_pb_tables, 'interval', minutes=10)
+scheduler.add_job(__replicate_bb_tables, 'interval', minutes=10)
+scheduler.add_job(__replicate_sd_tables, 'interval', minutes=10)
+scheduler.add_job(forex_rate_getter.update_forex_rates, 'interval', hours=12)
+scheduler.add_job(facebook_report_getter.get_bb_reports, 'cron', minute=0)
 
 scheduler.print_jobs()
 atexit.register(lambda: scheduler.shutdown())

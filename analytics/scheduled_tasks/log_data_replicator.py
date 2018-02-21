@@ -3,6 +3,7 @@ from analytics.models import LogData
 from sqlalchemy import desc, create_engine, func, select, engine
 from sqlalchemy.sql import text
 from sshtunnel import SSHTunnelForwarder
+from datetime import datetime, timedelta
 import MySQLdb as db
 
 
@@ -41,11 +42,13 @@ class LogDataReplicator:
         values = []
         for datum in log_data:
             app.logger.info('Inserting log_data id = %i, account = %s' % (datum['id'], account_name))
+            created_at = datum['created_date'] - timedelta(hours=1)
+
             values.append(dict(account=account_name, step=datum['step'], customer_id=datum['cust_id'], email=datum['email'],
                                fname=datum['fname'], lname=datum['lname'], webid=datum['webid'], country=datum['country'], pubid=datum['pubid'],
                                subid=datum['subid'], utm_medium=datum['utm_medium'], utm_term=datum['utm_term'], utm_content=datum['utm_content'],
                                utm_campaign=datum['utm_campaign'], referrer_url=datum['referrer_url'], ip_address=datum['ip_addr'],
-                               click_id=datum['click_id'], user_agent=datum['user_agent'], original_id=datum['id'], created_at=datum['created_date']))
+                               click_id=datum['click_id'], user_agent=datum['user_agent'], original_id=datum['id'], created_at=created_at))
 
         if values:
             db_conn.execute(LogData.insert(), values)
@@ -85,11 +88,13 @@ class LogDataReplicator:
         values = []
         for datum in log_data:
             app.logger.info('Inserting log_data id = %i, account = %s' % (datum['id'], account_name))
+            created_at = datum['created_date'] - timedelta(hours=1)
+
             values.append(dict(account=account_name, step=datum['step'], customer_id=datum['cust_id'], email=datum['email'],
                                fname=datum['fname'], lname=datum['lname'], webid=datum['webid'], country=datum['country'], pubid=datum['pubid'],
                                subid=datum['subid'], utm_medium=datum['utm_medium'], utm_term=datum['utm_term'], utm_content=datum['utm_content'],
                                utm_campaign=datum['utm_campaign'], referrer_url=datum['referrer_url'], ip_address=datum['ip_addr'],
-                               click_id=datum['click_id'], user_agent=datum['user_agent'], original_id=datum['id'], created_at=datum['created_date']))
+                               click_id=datum['click_id'], user_agent=datum['user_agent'], original_id=datum['id'], created_at=created_at))
 
         if values:
             db_conn.execute(LogData.insert(), values)
@@ -137,11 +142,13 @@ class LogDataReplicator:
         values = []
         for datum in log_data:
             app.logger.info('Inserting log_data id = %i, account = %s' % (datum['id'], account_name))
+            created_at = datum['created_date'] - timedelta(hours=1)
+
             values.append(dict(account=account_name, step=datum['step'], customer_id=datum['cust_id'], email=datum['email'],
                                fname=datum['fname'], lname=datum['lname'], webid=datum['webid'], country=datum['country'], pubid=datum['pubid'],
                                subid=datum['subid'], utm_medium=datum['utm_medium'], utm_term=datum['utm_term'], utm_content=datum['utm_content'],
                                utm_campaign=datum['utm_campaign'], referrer_url=datum['referrer_url'], ip_address=datum['ip_addr'],
-                               click_id=datum['click_id'], user_agent=datum['user_agent'], original_id=datum['id'], created_at=datum['created_date']))
+                               click_id=datum['click_id'], user_agent=datum['user_agent'], original_id=datum['id'], created_at=created_at))
 
         if values:
             db_conn.execute(LogData.insert(), values)

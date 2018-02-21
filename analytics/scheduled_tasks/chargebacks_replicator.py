@@ -3,6 +3,7 @@ from analytics.models import Chargebacks
 from sqlalchemy import desc, create_engine, func, select, engine
 from sqlalchemy.sql import text
 from sshtunnel import SSHTunnelForwarder
+from datetime import datetime, timedelta
 import MySQLdb as db
 
 
@@ -50,12 +51,14 @@ class ChargebacksReplicator:
         values = []
         for chargeback in chargebacks:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
+            created_at = chargeback['date_created'] - timedelta(hours=1)
+
             values.append(dict(account=account_name, merchant_user_id=chargeback['merchant_user_id'], webid=chargeback['webid'],
                                country=chargeback['webid_country'], original_id=chargeback['id'], status=chargeback['status'], type=chargeback['type'],
                                mode=chargeback['mode'], amount=chargeback['amount'], bank_time=chargeback['bank_time'],
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
-                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=chargeback['date_created'], custom_mid_name=chargeback['custom_mid_name'],
+                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
                                response=chargeback['charge_response'], time=chargeback['time']))
 
         if values:
@@ -105,12 +108,14 @@ class ChargebacksReplicator:
         values = []
         for chargeback in chargebacks:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
+            created_at = chargeback['date_created'] - timedelta(hours=1)
+
             values.append(dict(account=account_name, merchant_user_id=chargeback['merchant_user_id'], webid=chargeback['webid'],
                                country=chargeback['webid_country'], original_id=chargeback['id'], status=chargeback['status'], type=chargeback['type'],
                                mode=chargeback['mode'], amount=chargeback['amount'], bank_time=chargeback['bank_time'],
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
-                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=chargeback['date_created'], custom_mid_name=chargeback['custom_mid_name'],
+                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
                                response=chargeback['charge_response'], time=chargeback['time']))
 
         if values:
@@ -168,12 +173,14 @@ class ChargebacksReplicator:
         values = []
         for chargeback in chargebacks:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
+            created_at = chargeback['date_created'] - timedelta(hours=1)
+
             values.append(dict(account=account_name, merchant_user_id=chargeback['merchant_user_id'], webid=chargeback['webid'],
                                country=chargeback['webid_country'], original_id=chargeback['id'], status=chargeback['status'], type=chargeback['type'],
                                mode=chargeback['mode'], amount=chargeback['amount'], bank_time=chargeback['bank_time'],
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
-                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=chargeback['date_created'], custom_mid_name=chargeback['custom_mid_name'],
+                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
                                response=chargeback['charge_response'], time=chargeback['time']))
 
         if values:
