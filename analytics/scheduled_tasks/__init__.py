@@ -21,21 +21,21 @@ users_replicator = UsersReplicator()
 
 def __replicate_pb_tables():
     transactions_replicator.replicate_pb_transactions()
-    chargebacks_replicator.replicate_pb_chargebacks()
+    # chargebacks_replicator.replicate_pb_chargebacks()
     log_data_replicator.replicate_pb_log_data()
     users_replicator.replicate_pb_users()
 
 
 def __replicate_bb_tables():
     transactions_replicator.replicate_bb_transactions()
-    chargebacks_replicator.replicate_bb_chargebacks()
+    # chargebacks_replicator.replicate_bb_chargebacks()
     log_data_replicator.replicate_bb_log_data()
     users_replicator.replicate_bb_users()
 
 
 def __replicate_sd_tables():
     transactions_replicator.replicate_sd_transactions()
-    chargebacks_replicator.replicate_sd_chargebacks()
+    # chargebacks_replicator.replicate_sd_chargebacks()
     log_data_replicator.replicate_sd_log_data()
     users_replicator.replicate_sd_users()
 
