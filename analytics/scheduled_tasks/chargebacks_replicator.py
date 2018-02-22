@@ -59,7 +59,7 @@ class ChargebacksReplicator:
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
                                transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
-                               response=chargeback['charge_response'], time=chargeback['time']))
+                               response=chargeback['charge_response'], time=chargeback['time'], brand='VISA' if 'VISA' in response else 'MASTERCARD'))
 
         if values:
             db_conn.execute(Chargebacks.insert(), values)
@@ -116,7 +116,7 @@ class ChargebacksReplicator:
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
                                transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
-                               response=chargeback['charge_response'], time=chargeback['time']))
+                               response=chargeback['charge_response'], time=chargeback['time'], brand='VISA' if 'VISA' in response else 'MASTERCARD'))
 
         if values:
             db_conn.execute(Chargebacks.insert(), values)
@@ -181,7 +181,7 @@ class ChargebacksReplicator:
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
                                transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
-                               response=chargeback['charge_response'], time=chargeback['time']))
+                               response=chargeback['charge_response'], time=chargeback['time'], brand='VISA' if 'VISA' in response else 'MASTERCARD'))
 
         if values:
             db_conn.execute(Chargebacks.insert(), values)
