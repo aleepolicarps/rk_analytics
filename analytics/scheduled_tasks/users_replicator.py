@@ -48,7 +48,7 @@ class UsersReplicator:
                                pubid=user['pubid'], subid=user['subid'], utm_medium=user['utm_medium'], utm_term=user['utm_term'],
                                utm_content=user['utm_content'], utm_campaign=user['utm_campaign'], referrer_url=user['referrer_url'],
                                ip_address=user['ip_addr'], click_id=user['click_id'], user_agent=user['user_agent'], original_id=user['id'],
-                               created_at=user['created_date']))
+                               created_at=created_at))
         if values:
             db_conn.execute(Users.insert(), values)
 
@@ -93,7 +93,7 @@ class UsersReplicator:
                                pubid=user['pubid'], subid=user['subid'], utm_medium=user['utm_medium'], utm_term=user['utm_term'],
                                utm_content=user['utm_content'], utm_campaign=user['utm_campaign'], referrer_url=user['referrer_url'],
                                ip_address=user['ip_addr'], click_id=user['click_id'], user_agent=user['user_agent'], original_id=user['id'],
-                               created_at=user['created_date']))
+                               created_at=created_at))
         if values:
             db_conn.execute(Users.insert(), values)
 
@@ -146,7 +146,7 @@ class UsersReplicator:
                                pubid=user['pubid'], subid=user['subid'], utm_medium=user['utm_medium'], utm_term=user['utm_term'],
                                utm_content=user['utm_content'], utm_campaign=user['utm_campaign'], referrer_url=user['referrer_url'],
                                ip_address=user['ip_addr'], click_id=user['click_id'], user_agent=user['user_agent'], original_id=user['id'],
-                               created_at=user['created_date']))
+                               created_at=created_at))
         if values:
             db_conn.execute(Users.insert(), values)
 
