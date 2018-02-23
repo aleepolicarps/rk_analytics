@@ -115,8 +115,8 @@ class TransactionsReplicator:
         for charge in charges:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
             created_at = charge['date_created'] - timedelta(hours=1)
-            response = json.loads(charge['charges_response'])
-            mid_name = response['custom_fields']['custom_mid_name']
+            # response = json.loads(charge['charges_response'])
+            # mid_name = response['custom_fields']['custom_mid_name']
 
             values.append(dict(account=account_name, merchant_user_id=charge['merchant_user_id'], transaction_type=charge['transaction_type'],
                                mode=charge['mode'], code=int(charge['code']) if charge['code'] else 0, amount=charge['amount'], currency=charge['currency'],
@@ -127,7 +127,7 @@ class TransactionsReplicator:
                                reference=charge['reference'], base_reference=charge['base_reference'], transaction_unique_id=charge['transaction_unique_id'],
                                fraudulent=charge['is_fraudalerts'], created_at=created_at, response=charge['charges_response'],
                                webid=charge['webid'], country=charge['webid_country'], original_id=charge['id'], status=charge['status'],
-                               mid_name=mid_name))
+                               mid_name=charge['mid_name']))
 
         if values:
             db_conn.execute(Transactions.insert(), values)

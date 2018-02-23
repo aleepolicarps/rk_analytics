@@ -115,7 +115,7 @@ class ChargebacksReplicator:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
             created_at = chargeback['date_created'] - timedelta(hours=1)
 
-            response = json.loads(chargeback['response'])
+            response = json.loads(chargeback['charge_response'])
             mid_name = response['transaction']['custom_fields']['custom_mid_name']
             card_brand = response['transaction']['card']['brand']
 
@@ -184,7 +184,7 @@ class ChargebacksReplicator:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
             created_at = chargeback['date_created'] - timedelta(hours=1)
 
-            response = json.loads(chargeback['response'])
+            response = json.loads(chargeback['charge_response'])
             mid_name = response['transaction']['custom_fields']['custom_mid_name']
             card_brand = response['transaction']['card']['brand']
 
