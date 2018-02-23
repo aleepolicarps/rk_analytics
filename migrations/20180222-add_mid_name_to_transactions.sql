@@ -1,0 +1,1 @@
+ALTER TABLE chargebacks ADD COLUMN mid_name VARCHAR(255) DEFAULT NULL;

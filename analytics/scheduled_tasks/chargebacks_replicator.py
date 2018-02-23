@@ -5,6 +5,7 @@ from sqlalchemy.sql import text
 from sshtunnel import SSHTunnelForwarder
 from datetime import datetime, timedelta
 import MySQLdb as db
+import json
 
 
 class ChargebacksReplicator:
@@ -53,13 +54,17 @@ class ChargebacksReplicator:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
             created_at = chargeback['date_created'] - timedelta(hours=1)
 
+            response = json.loads(chargeback['charge_response'])
+            mid_name = response['transaction']['custom_fields']['custom_mid_name']
+            card_brand = response['transaction']['card']['brand']
+
             values.append(dict(account=account_name, merchant_user_id=chargeback['merchant_user_id'], webid=chargeback['webid'],
                                country=chargeback['webid_country'], original_id=chargeback['id'], status=chargeback['status'], type=chargeback['type'],
                                mode=chargeback['mode'], amount=chargeback['amount'], bank_time=chargeback['bank_time'],
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
-                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
-                               response=chargeback['charge_response'], time=chargeback['time'], brand='VISA' if 'VISA' in response else 'MASTERCARD'))
+                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, mid_name=mid_name,
+                               response=chargeback['charge_response'], time=chargeback['time'], brand=card_brand))
 
         if values:
             db_conn.execute(Chargebacks.insert(), values)
@@ -110,13 +115,17 @@ class ChargebacksReplicator:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
             created_at = chargeback['date_created'] - timedelta(hours=1)
 
+            response = json.loads(chargeback['response'])
+            mid_name = response['transaction']['custom_fields']['custom_mid_name']
+            card_brand = response['transaction']['card']['brand']
+
             values.append(dict(account=account_name, merchant_user_id=chargeback['merchant_user_id'], webid=chargeback['webid'],
                                country=chargeback['webid_country'], original_id=chargeback['id'], status=chargeback['status'], type=chargeback['type'],
                                mode=chargeback['mode'], amount=chargeback['amount'], bank_time=chargeback['bank_time'],
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
-                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
-                               response=chargeback['charge_response'], time=chargeback['time'], brand='VISA' if 'VISA' in response else 'MASTERCARD'))
+                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, mid_name=mid_name,
+                               response=chargeback['charge_response'], time=chargeback['time'], brand=card_brand))
 
         if values:
             db_conn.execute(Chargebacks.insert(), values)
@@ -175,13 +184,17 @@ class ChargebacksReplicator:
             app.logger.info('Inserting chargeback id = %i, account = %s' % (chargeback['id'], account_name))
             created_at = chargeback['date_created'] - timedelta(hours=1)
 
+            response = json.loads(chargeback['response'])
+            mid_name = response['transaction']['custom_fields']['custom_mid_name']
+            card_brand = response['transaction']['card']['brand']
+
             values.append(dict(account=account_name, merchant_user_id=chargeback['merchant_user_id'], webid=chargeback['webid'],
                                country=chargeback['webid_country'], original_id=chargeback['id'], status=chargeback['status'], type=chargeback['type'],
                                mode=chargeback['mode'], amount=chargeback['amount'], bank_time=chargeback['bank_time'],
                                currency=chargeback['currency'], bank_id=chargeback['bank_id'], bank_authcode=chargeback['bank_authcode'],
                                bank_update_time=chargeback['bank_update_time'], reference=chargeback['reference'], base_reference=chargeback['base_reference'],
-                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, custom_mid_name=chargeback['custom_mid_name'],
-                               response=chargeback['charge_response'], time=chargeback['time'], brand='VISA' if 'VISA' in response else 'MASTERCARD'))
+                               transaction_unique_id=chargeback['transaction_unique_id'], created_at=created_at, mid_name=mid_name,
+                               response=chargeback['charge_response'], time=chargeback['time'], brand=card_brand))
 
         if values:
             db_conn.execute(Chargebacks.insert(), values)
