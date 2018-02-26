@@ -155,7 +155,7 @@ class ChargebacksReplicator:
                 WHERE maxpay_chargeback_new.id > :last_id
                 ORDER BY maxpay_chargeback_new.id ASC
                 LIMIT :count''')
-            result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
+            result = source_conn.execute(sql, last_id=int(last_id), count=50).fetchall()
 
             for chargeback in result:
                 sql = text('''SELECT temp_users.webid as webid, webid.country AS country FROM temp_users

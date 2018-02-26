@@ -123,9 +123,8 @@ class LogDataReplicator:
                     AND log_data.created_date > '2017-12-31 23:59:59'
                 ORDER BY log_data.id ASC
                 LIMIT :count''')
-            result = source_conn.execute(sql, last_id=int(last_id), count=400).fetchall()
+            result = source_conn.execute(sql, last_id=int(last_id), count=200).fetchall()
 
-            log_data = []
             for datum in result:
                 sql = text('''SELECT country FROM webid WHERE web_id = :webid''')
                 webid_info = source_conn.execute(sql, webid=datum['webid']).first()

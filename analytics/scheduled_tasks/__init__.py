@@ -21,9 +21,9 @@ users_replicator = UsersReplicator()
 
 def __replicate_pb_tables():
     transactions_replicator.replicate_pb_transactions()
-    # chargebacks_replicator.replicate_pb_chargebacks()
-    # log_data_replicator.replicate_pb_log_data()
-    # users_replicator.replicate_pb_users()
+    chargebacks_replicator.replicate_pb_chargebacks()
+    log_data_replicator.replicate_pb_log_data()
+    users_replicator.replicate_pb_users()
 
 
 def __replicate_bb_tables():

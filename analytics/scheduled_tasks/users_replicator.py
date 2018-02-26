@@ -121,7 +121,7 @@ class UsersReplicator:
                     AND users.created_date > '2017-12-31 23:59:59'
                 ORDER BY users.id ASC
                 LIMIT :count''')
-            result = source_conn.execute(sql, last_id=int(last_id), count=100).fetchall()
+            result = source_conn.execute(sql, last_id=int(last_id), count=50).fetchall()
 
             users = []
             for user in result:
