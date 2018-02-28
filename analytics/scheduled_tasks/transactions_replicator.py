@@ -43,7 +43,7 @@ class TransactionsReplicator:
 
             charge_temp = dict(charge)
             charge_temp['webid'] = user_info['webid']
-            charge_temp['webid_country'] = user_info['country']
+            charge_temp['webid_country'] = user_info['country'].title() if user_info['country'] else None
             charges.append(charge_temp)
 
         source_conn.close()
@@ -106,7 +106,7 @@ class TransactionsReplicator:
 
             charge_temp = dict(charge)
             charge_temp['webid'] = user_info['webid']
-            charge_temp['webid_country'] = user_info['country']
+            charge_temp['webid_country'] = user_info['country'].title() if user_info['country'] else None
             charges.append(charge_temp)
 
         source_conn.close()
@@ -174,7 +174,7 @@ class TransactionsReplicator:
 
                 charge_temp = dict(charge)
                 charge_temp['webid'] = user_info['webid']
-                charge_temp['webid_country'] = user_info['country']
+                charge_temp['webid_country'] = user_info['country'].title() if user_info['country'] else None
                 charges.append(charge_temp)
 
             source_conn.close()

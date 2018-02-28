@@ -34,7 +34,7 @@ class LogDataReplicator:
                 webid_info = dict(country=None)
 
             log_data_temp = dict(datum)
-            log_data_temp['country'] = webid_info['country']
+            log_data_temp['country'] = webid_info['country'].title() if webid_info['country'] else None
             log_data.append(log_data_temp)
 
         source_conn.close()
@@ -80,7 +80,7 @@ class LogDataReplicator:
                 webid_info = dict(country=None)
 
             log_data_temp = dict(datum)
-            log_data_temp['country'] = webid_info['country']
+            log_data_temp['country'] = webid_info['country'].title() if webid_info['country'] else None
             log_data.append(log_data_temp)
 
         source_conn.close()
@@ -133,7 +133,7 @@ class LogDataReplicator:
                     webid_info = dict(country=None)
 
                 log_data_temp = dict(datum)
-                log_data_temp['country'] = webid_info['country']
+                log_data_temp['country'] = webid_info['country'].title() if webid_info['country'] else None
                 log_data.append(log_data_temp)
 
             source_conn.close()

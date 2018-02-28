@@ -44,7 +44,7 @@ class ChargebacksReplicator:
 
             chargeback_temp = dict(chargeback)
             chargeback_temp['webid'] = user_info['webid']
-            chargeback_temp['webid_country'] = user_info['country']
+            chargeback_temp['webid_country'] = user_info['country'].title() if user_info['country'] else None
             chargebacks.append(chargeback_temp)
 
         source_conn.close()
@@ -105,7 +105,7 @@ class ChargebacksReplicator:
 
             chargeback_temp = dict(chargeback)
             chargeback_temp['webid'] = user_info['webid']
-            chargeback_temp['webid_country'] = user_info['country']
+            chargeback_temp['webid_country'] = user_info['country'].title() if user_info['country'] else None
             chargebacks.append(chargeback_temp)
 
         source_conn.close()
@@ -174,7 +174,7 @@ class ChargebacksReplicator:
 
                 chargeback_temp = dict(chargeback)
                 chargeback_temp['webid'] = user_info['webid']
-                chargeback_temp['webid_country'] = user_info['country']
+                chargeback_temp['webid_country'] = user_info['country'].title() if user_info['country'] else None
                 chargebacks.append(chargeback_temp)
 
             source_conn.close()
