@@ -33,7 +33,7 @@ class UsersReplicator:
                 webid_info = dict(country=None)
 
             user_temp = dict(user)
-            user_temp['country'] = webid_info['country'].title() if webid_info else None
+            user_temp['country'] = webid_info['country'].title() if webid_info['country'] else None
             users.append(user_temp)
 
         source_conn.close()
@@ -77,7 +77,7 @@ class UsersReplicator:
                 webid_info = dict(country=None)
 
             user_temp = dict(user)
-            user_temp['country'] = webid_info['country'].title() if webid_info else None
+            user_temp['country'] = webid_info['country'].title() if webid_info['country'] else None
             users.append(user_temp)
 
         source_conn.close()
@@ -129,7 +129,7 @@ class UsersReplicator:
                     webid_info = dict(country=None)
 
                 user_temp = dict(user)
-                user_temp['country'] = webid_info['country'].title() if webid_info else None
+                user_temp['country'] = webid_info['country'].title() if webid_info['country'] else None
                 users.append(user_temp)
 
             source_conn.close()
