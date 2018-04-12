@@ -43,7 +43,7 @@ class UsersReplicator:
             app.logger.info('Inserting users id = %i, account = %s' % (user['id'], account_name))
             created_at = user['created_date'] - timedelta(hours=1)
             values.append(dict(account=account_name, customer_id=user['customer_id'], email=user['email'],
-                               fname=user['fname'], lname=user['lname'], webid=user['lname'], country=user['country'],
+                               fname=user['fname'], lname=user['lname'], webid=user['webid'], country=user['country'],
                                pubid=user['pubid'], subid=user['subid'], utm_medium=user['utm_medium'], utm_term=user['utm_term'],
                                utm_content=user['utm_content'], utm_campaign=user['utm_campaign'], referrer_url=user['referrer_url'],
                                ip_address=user['ip_addr'], click_id=user['click_id'], user_agent=user['user_agent'], original_id=user['id'],
@@ -87,7 +87,7 @@ class UsersReplicator:
             app.logger.info('Inserting users id = %i, account = %s' % (user['id'], account_name))
             created_at = user['created_date'] - timedelta(hours=1)
             values.append(dict(account=account_name, customer_id=user['customer_id'], email=user['email'],
-                               fname=user['fname'], lname=user['lname'], webid=user['lname'], country=user['country'],
+                               fname=user['fname'], lname=user['lname'], webid=user['webid'], country=user['country'],
                                pubid=user['pubid'], subid=user['subid'], utm_medium=user['utm_medium'], utm_term=user['utm_term'],
                                utm_content=user['utm_content'], utm_campaign=user['utm_campaign'], referrer_url=user['referrer_url'],
                                ip_address=user['ip_addr'], click_id=user['click_id'], user_agent=user['user_agent'], original_id=user['id'],
@@ -139,7 +139,7 @@ class UsersReplicator:
             app.logger.info('Inserting users id = %i, account = %s' % (user['id'], account_name))
             created_at = user['created_date'] - timedelta(hours=1)
             values.append(dict(account=account_name, customer_id=user['customer_id'], email=user['email'],
-                               fname=user['fname'], lname=user['lname'], webid=user['lname'], country=user['country'],
+                               fname=user['fname'], lname=user['lname'], webid=user['webid'], country=user['country'],
                                pubid=user['pubid'], subid=user['subid'], utm_medium=user['utm_medium'], utm_term=user['utm_term'],
                                utm_content=user['utm_content'], utm_campaign=user['utm_campaign'], referrer_url=user['referrer_url'],
                                ip_address=user['ip_addr'], click_id=user['click_id'], user_agent=user['user_agent'], original_id=user['id'],
