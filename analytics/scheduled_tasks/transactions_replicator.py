@@ -51,6 +51,7 @@ class TransactionsReplicator:
         values = []
         for charge in charges:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
+            print 'Inserting transaction id = %i, account = %s' % (charge['id'], account_name)
             created_at = charge['date_created'] - timedelta(hours=1)
             response = json.loads(charge['charges_response'])
             mid_name = response['custom_fields']['custom_mid_name']
@@ -114,6 +115,7 @@ class TransactionsReplicator:
         values = []
         for charge in charges:
             app.logger.info('Inserting transaction id = %i, account = %s' % (charge['id'], account_name))
+            print 'Inserting transaction id = %i, account = %s' % (charge['id'], account_name)
             created_at = charge['date_created'] - timedelta(hours=1)
             # response = json.loads(charge['charges_response'])
             # mid_name = response['custom_fields']['custom_mid_name']
